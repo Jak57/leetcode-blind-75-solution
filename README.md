@@ -4,6 +4,8 @@ Solutions of Leetcode Problems
 # Progress tracker
 * [Google sheet](https://docs.google.com/spreadsheets/d/1Cx83y1s0N8kQtrf_yiSvnuCExcPpSSci1LwxbP22T94/edit?usp=sharing)
 
+# Topics
+
 ## Array
 
 - [x] [Two Sum](https://leetcode.com/problems/two-sum/)
