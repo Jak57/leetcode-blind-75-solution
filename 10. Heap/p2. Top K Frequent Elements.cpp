@@ -1,5 +1,5 @@
 1.
-// Heaps
+// Heap
 
 struct Node{
     int val;
