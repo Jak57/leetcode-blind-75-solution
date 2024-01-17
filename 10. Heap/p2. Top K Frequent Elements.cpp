@@ -49,3 +49,46 @@ public:
         return ans;
     }
 };
+
+
+2.
+// Hash map
+    
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        int n, i, j, val, cnt;
+        n = nums.size();
+        unordered_map<int, int> mp1;
+        unordered_map< int, vector<int> > mp2;
+        vector<int> ans;
+        
+        for (i = 0; i < n; i++) {
+            val = nums[i];
+            if (mp1.find(val) == mp1.end()) 
+                mp1[val] = 1;
+            else
+                mp1[val] += 1;
+        }
+        
+        for (auto item: mp1) {
+            val = item.first;
+            cnt = item.second;
+            mp2[cnt].push_back(val);
+        }
+        
+        for (i = n; i >= 1; i--) {
+            if (mp2.find(i) != mp2.end()) {
+                for (j = 0; j < mp2[i].size(); j++) {
+                    if (k > 0)
+                    {
+                        ans.push_back(mp2[i][j]);
+                        k--;
+                    }
+                }
+            }
+        }
+        
+        return ans;
+    }
+};
