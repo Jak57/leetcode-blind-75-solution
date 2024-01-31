@@ -31,3 +31,38 @@ public:
         return true;
     }
 };
+
+
+// 2.
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        int n, m, i;
+        n = s.size();
+        m = t.size();
+        if (n != m)
+            return false;
+        
+        map<char, int> mp;
+        for (i = 0; i < n; i++) {
+            char ch = s[i];
+            if (mp.find(ch) == mp.end())
+                mp[ch] = 1;
+            else
+                mp[ch]++;
+        }
+        
+        for (i = 0; i < m; i++) {
+            char ch = t[i];
+            if (mp.find(ch) == mp.end()) {
+                return false;
+            } else {
+                mp[ch]--;
+                if (mp[ch] == 0)
+                    mp.erase(ch);
+            }
+        }
+
+        return true;
+    }
+};
