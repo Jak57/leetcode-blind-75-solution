@@ -76,3 +76,75 @@ public:
         return ans;
     }
 };
+
+// 02.
+
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        map<char, int> mpt;
+        int i, j, n, m;
+        char ch;
+        
+        int count, target;
+        int si, sj, minSize = INT_MAX, sz;
+        bool found = false;
+        
+        map<char, int> window;
+        n = s.size();
+        m = t.size();
+        
+        for (i = 0; i < m; i++) {
+            ch = t[i];
+            if (mpt.find(ch) == mpt.end())
+                mpt[ch] = 1;
+            else
+                mpt[ch] += 1;
+        }
+        
+        for (auto item: mpt) {
+            ch = item.first;
+            window[ch] = 0;
+        }
+        
+        target = mpt.size();
+        count = 0;
+        i = 0;
+        
+        for (j = 0; j < n; j++) {
+            ch = s[j];
+            if (window.find(ch) == window.end()) 
+                continue;
+
+            window[ch] += 1;
+            if (window[ch] == mpt[ch])
+                count += 1;
+            
+            while (count == target) {
+                found = true;
+                sz = j-i+1;
+                if (sz < minSize) {
+                    minSize = sz;
+                    si = i;
+                    sj = j;
+                }
+                
+                ch = s[i];
+                if (window.find(ch) != window.end()) {
+                    window[ch] -= 1;
+                
+                    if (window[ch] < mpt[ch])
+                        count -= 1;
+                }
+                i++;
+            }
+            while (i < n && (window.find(s[i]) == window.end()))
+                i++;
+        }
+        
+        if (!found)
+            return "";
+        else
+            return s.substr(si, sj-si+1);
+    }
+};
