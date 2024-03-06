@@ -12,8 +12,8 @@ public:
         int i;
         for (i = 0; i < 26; i++) {
             node->child[i] = NULL;
-            node->isEnd = false;
         }
+        node->isEnd = false;
         return node;
     }
     
