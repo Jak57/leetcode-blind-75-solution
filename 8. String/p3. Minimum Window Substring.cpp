@@ -151,3 +151,65 @@ public:
             return s.substr(si, sj-si+1);
     }
 };
+
+
+// 03.
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        int i, j, n, m;
+        char ch;
+        map<char, int> mps;
+        map<char, int> mpt;
+        
+        n = s.size();
+        m = t.size();
+        
+        for (i = 0; i < m; i++) {
+            ch = t[i];
+            if (mpt.find(ch) == mpt.end()) {
+                mpt[ch] = 1;
+                mps[ch] = 0;
+            } else
+                mpt[ch]++;
+        }
+        
+        int need = mpt.size(), have = 0, l = -1, r = -1;
+        int mnW = INT_MAX;
+        i = 0;
+        j = 0;
+        
+        for (j = 0; j < n; j++) {
+            ch = s[j];
+            if (mps.find(ch) == mps.end())
+                continue;
+            
+            mps[ch]++;
+            if (mps[ch] == mpt[ch])
+                have++;
+            
+            while (have == need) {
+                if ((j-i+1) < mnW) {
+                    mnW = j-i+1;
+                    l = i;
+                    r = j;
+                }
+                
+                if (mps.find(s[i]) != mps.end()) {
+                    mps[s[i]]--;
+                    if (mps[s[i]] < mpt[s[i]])
+                        have--;
+                    i++;
+                }
+                
+                while (i < j && (mps.find(s[i]) == mps.end())) {
+                    i++;
+                }
+            }
+        }
+        
+        if (l == -1)
+            return "";
+        return s.substr(l, mnW);
+    }
+};
